@@ -6,17 +6,16 @@ EXPOSE 9200
 EXPOSE 9300
 
 ENV JAVA_VER=1.8.0 \
-  ES_VER=1.6
+  ES_VER=1.5.2
 
 LABEL io.k8s.description="Elasticsearch container for allowing indexing and searching of aggregated logs" \
-  io.k8s.display-name="Elasticsearch 1.6" \
+  io.k8s.display-name="Elasticsearch 1.5.2" \
   io.openshift.expose-services="9200:http, 9300:http" \
   io.openshift.tags="logging,elk,elasticsearch"
 
 COPY elasticsearch.repo /etc/yum.repos.d/elasticsearch.repo
 
-RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-  rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch && \
+RUN rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch && \
   yum install -y -- setopt=tsflags=nodocs \
   java-1.8.0-openjdk \
   elasticsearch
